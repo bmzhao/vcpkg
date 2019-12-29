@@ -9,19 +9,17 @@ endif()
 vcpkg_from_github(
     OUT_SOURCE_PATH SOURCE_PATH
     REPO tensorflow/tensorflow
-    REF v1.14.0
-    SHA512 ac9ea5a2d1c761aaafbdc335259e29c128127b8d069ec5b206067935180490aa95e93c7e13de57f7f54ce4ba4f34a822face22b4a028f60185edb380e5cd4787
+    REF v2.1.0-rc2
+    SHA512 7b8c9a83b5c25b36f680cfdaeefdc932cab93ecfc25622cd46ac14b2f5582eea4f04c6bdd5d63058266d5e0bf2cd9e1fb7a0647be62fb4ec4b910b0e7b4214e0
     HEAD_REF master
-    PATCHES
-        file-exists.patch # required or otherwise it cant find python lib path on windows
-        fix-build-error.patch # Fix namespace error
 )
 
 # due to https://github.com/bazelbuild/bazel/issues/8028, bazel must be version 25.0 or higher
-vcpkg_find_acquire_program(BAZEL)
-get_filename_component(BAZEL_DIR "${BAZEL}" DIRECTORY)
+# TF 2.1.0rc2 is at bazel 0.29.1: https://github.com/tensorflow/tensorflow/blob/v2.1.0-rc2/tensorflow/tools/ci_build/install/install_bazel.sh#L18
+vcpkg_find_acquire_program(BAZELISK)
+get_filename_component(BAZEL_DIR "${BAZELISK}" DIRECTORY)
 vcpkg_add_to_path(PREPEND ${BAZEL_DIR})
-set(ENV{BAZEL_BIN_PATH} "${BAZEL}")
+set(ENV{BAZEL_BIN_PATH} "${BAZELISK}")
 
 vcpkg_find_acquire_program(PYTHON3)
 get_filename_component(PYTHON3_DIR "${PYTHON3}" DIRECTORY)
