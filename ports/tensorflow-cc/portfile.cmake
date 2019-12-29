@@ -16,10 +16,10 @@ vcpkg_from_github(
 
 # due to https://github.com/bazelbuild/bazel/issues/8028, bazel must be version 25.0 or higher
 # TF 2.1.0rc2 is at bazel 0.29.1: https://github.com/tensorflow/tensorflow/blob/v2.1.0-rc2/tensorflow/tools/ci_build/install/install_bazel.sh#L18
-vcpkg_find_acquire_program(BAZELISK)
-get_filename_component(BAZEL_DIR "${BAZELISK}" DIRECTORY)
+vcpkg_find_acquire_program(BAZEL)
+get_filename_component(BAZEL_DIR "${BAZEL}" DIRECTORY)
 vcpkg_add_to_path(PREPEND ${BAZEL_DIR})
-set(ENV{BAZEL_BIN_PATH} "${BAZELISK}")
+set(ENV{BAZEL_BIN_PATH} "${BAZEL}")
 
 vcpkg_find_acquire_program(PYTHON3)
 get_filename_component(PYTHON3_DIR "${PYTHON3}" DIRECTORY)
